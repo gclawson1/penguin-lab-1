@@ -88,4 +88,36 @@ var_table <- penguins2 %>%
 
 ```
 
+#3. One-way ANOVA
+
+- single factor: common_name (species)
+- Number of levels in the factor: 3 (chinstrap, gentoo, adelie)
+- Random variable: flipper_length
+
+Is there a significant difference in mean flipper length (mm) for female Chinstrap, Gentoo, and Adelie penguins?
+
+```{r}
+penguin_aov <- aov(flipper_length ~ common_name, data = penguins2)
+summary(penguin_aov)
+
+# H0: Mean flipper lengths across all species are equal
+# HA: There is at least one significant difference in means between the 3 species
+
+# At least two samples were taken from populations with different means. Which ones are different? All three are different from eachother? Or something else?
+
+
+# Post hoc testing using Tukey's HSD
+
+penguin_ph <- TukeyHSD(penguin_aov)
+penguin_ph
+
+
+```
+
+Mean flipper lengths for Adelie, Gentoo, and Chinstrap penguins are significantly different (F(df) = statistic, p <0.001, $\alpha$ = 0.05 with post-hoc Tukey's HSD, $\alpha = 0.05$.)
+
+
+
+
+
 
